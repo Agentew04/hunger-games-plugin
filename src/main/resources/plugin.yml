@@ -1,0 +1,28 @@
+name: HungerGamesPlugin
+version: ${project.version}
+main: io.github.agentew04.hungergamesplugin.HungerGamesPlugin
+api-version: 1.17
+authors: [ Agentew04 ]
+description: Um plugin para lidar com a criação de um servidor de Hunger Games
+website: Agentew04.github.io
+depend: [Multiverse-Core]
+commands:
+  kit:
+    description: Comando para setar o seu Kit
+    usage: /kit <kit>
+    permission:  HungerGamesPlugin.kit
+  start:
+    description: Começa a partida
+    usage: /start
+    permission: HungerGamesPlugin.start
+  ping:
+    description: Mostra o ping do jogador
+    usage: /ping
+    permission: HungerGamesPlugin.ping
+  ready:
+    description: Muda seu status para pronto
+    usage: /ready
+    permission: HungerGamesPlugin.ready
+  ore:
+    description: Mostra a geração de minérios
+    usage: /ore ou /ore <minério>
