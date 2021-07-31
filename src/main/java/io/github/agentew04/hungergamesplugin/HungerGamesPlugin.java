@@ -3,7 +3,7 @@ package io.github.agentew04.hungergamesplugin;
 import com.onarandombox.MultiverseCore.MultiverseCore;
 import io.github.agentew04.hungergamesplugin.commands.*;
 import io.github.agentew04.hungergamesplugin.events.*;
-import io.github.agentew04.hungergamesplugin.kitevents.FishingListener;
+import io.github.agentew04.hungergamesplugin.kitevents.*;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -41,7 +41,7 @@ public final class HungerGamesPlugin extends JavaPlugin {
         //listeners
         this.getServer().getPluginManager().registerEvents(new ResoupListener(), this);
         this.getServer().getPluginManager().registerEvents(new GoldenAppleListener(), this);
-        this.getServer().getPluginManager().registerEvents(new FishingListener(), this);
+        this.getServer().getPluginManager().registerEvents(new JoinLeaveListener(this),this);
 
         //game
         this.game = new GameUtils(this);
@@ -53,6 +53,15 @@ public final class HungerGamesPlugin extends JavaPlugin {
         AddCustomStonePickaxe();
         AddCustomIronPickaxe();
         AddCustomDiamondPickaxe();
+
+        //kits listeners
+        this.getServer().getPluginManager().registerEvents(new FishingListener(this), this);
+        this.getServer().getPluginManager().registerEvents(new GraplerListener(this), this);
+        this.getServer().getPluginManager().registerEvents(new KangaroListener(this), this);
+        this.getServer().getPluginManager().registerEvents(new ViperListener(this), this);
+        //this.getServer().getPluginManager().registerEvents(new ArcherListener(this),this);
+        this.getServer().getPluginManager().registerEvents(new GladiatorListener(this),this);
+        this.getServer().getPluginManager().registerEvents(new WormListener(this),this);
 
         getLogger().info("Inicializacao completa");
     }
@@ -113,6 +122,12 @@ public final class HungerGamesPlugin extends JavaPlugin {
             getServer().addRecipe(recipe);
             getLogger().info("Sucessfully created "+comida.name()+" soup");
         }
+        NamespacedKey key = new NamespacedKey(this,"heal_soup_rotten_flesh");
+        ShapelessRecipe recipe = new ShapelessRecipe(key,sopa);
+        recipe.addIngredient(Material.BOWL);
+        recipe.addIngredient(8,Material.ROTTEN_FLESH);
+        getServer().addRecipe(recipe);
+        getLogger().info("Sucessfully created "+Material.ROTTEN_FLESH.name()+" soup");
     }
 
     //golden apple

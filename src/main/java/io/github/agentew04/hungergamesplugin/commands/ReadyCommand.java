@@ -163,6 +163,17 @@ public class ReadyCommand implements CommandExecutor {
                 meta = item.hasItemMeta()?item.getItemMeta():Bukkit.getItemFactory().getItemMeta(item.getType());
                 meta.setDisplayName(ChatColor.DARK_PURPLE+"Grapling Hook");
                 item.setItemMeta(meta);
+            case WolfTamer:
+                item = new ItemStack(Material.WOLF_SPAWN_EGG,10);
+                meta = item.hasItemMeta()?item.getItemMeta():Bukkit.getItemFactory().getItemMeta(item.getType());
+                meta.setDisplayName(ChatColor.DARK_PURPLE+"Invocar lobos da floresta");
+                item.setItemMeta(meta);
+                ItemStack item2 = new ItemStack(Material.BONE,64);
+                meta = item2.hasItemMeta()?item2.getItemMeta():Bukkit.getItemFactory().getItemMeta(item2.getType());
+                meta.setDisplayName(ChatColor.DARK_PURPLE+"Biscoito Scooby Doo");
+                item2.setItemMeta(meta);
+                player.getInventory().addItem(item,item2);
+                return;
             default:
                 item = new ItemStack(Material.AIR);
         }

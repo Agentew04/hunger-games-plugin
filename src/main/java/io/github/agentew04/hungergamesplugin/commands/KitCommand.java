@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.Objects;
 
 public class KitCommand implements CommandExecutor {
 
@@ -50,7 +49,7 @@ public class KitCommand implements CommandExecutor {
         Kits selected = ParseKit(args[0]);
         Player player = (Player)sender;
         player.sendMessage(ChatColor.GOLD+"Você selecionou "+selected.name());
-        main.game.addPlayerKit(player,selected);
+        main.game.setPlayerKit(player,selected);
         return true;
     }
 

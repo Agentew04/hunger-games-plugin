@@ -1,105 +1,122 @@
 package io.github.agentew04.hungergamesplugin;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GameUtils {
-    private HungerGamesPlugin main;
+    private final HungerGamesPlugin main;
     public GameUtils(HungerGamesPlugin main){
         this.main=main;
     }
     //region Game variables
-    private List<Player> PlayersIngame = new ArrayList<>();
-    private List<Player> PlayersReady = new ArrayList<>();
-    private Map<Player,Kits> PlayerKit = new HashMap<>();
-    private List<Player> AlivePlayers = new ArrayList<>();
-    private List<Player> DeadPlayers = new ArrayList<>();
+    private final List<UUID> PlayersIngame = new ArrayList<>();
+    private final List<UUID> PlayersReady = new ArrayList<>();
+    private final Map<UUID,Kits> PlayerKit = new HashMap<>();
+    private final List<UUID> AlivePlayers = new ArrayList<>();
+    private final List<UUID> DeadPlayers = new ArrayList<>();
     private boolean IsGameStarted = false;
     private boolean IsGameFinished = false;
 
+    private UUID Gladiator =null;
+    private UUID Gladiated =null;
+    private Location GladiatorLastPos=null;
+    private Location GladiatedLastPos=null;
+
     public void addPlayerInGame(Player player){
-        if(!PlayersIngame.contains(player)){
-            PlayersIngame.add(player);
+        UUID id = player.getUniqueId();
+        if(!PlayersIngame.contains(id)){
+            PlayersIngame.add(id);
         }
     }
     public void removePlayerInGame(Player player){
-        if(PlayersIngame.contains(player)){
-            PlayersIngame.remove(player);
-        }
+        UUID id = player.getUniqueId();
+        PlayersIngame.remove(id);
     }
     public List<Player> getPlayersIngame(){
-        return PlayersIngame;
+        List<Player> players = new ArrayList<>();
+        for (UUID id:PlayersIngame) {
+            players.add(Bukkit.getPlayer(id));
+        }
+        return players;
     }
     public boolean playersInGameHasPlayer(Player player){
-        return PlayersIngame.contains(player);
+        return PlayersIngame.contains(player.getUniqueId());
     }
     public void addReadyPlayer(Player player){
-        if(!PlayersReady.contains(player)){
-            PlayersReady.add(player);
+        UUID id = player.getUniqueId();
+        if(!PlayersReady.contains(id)){
+            PlayersReady.add(id);
         }
     }
     public void removeReadyPlayer(Player player){
-        if(PlayersReady.contains(player)){
-            PlayersReady.remove(player);
-        }
+        UUID id = player.getUniqueId();
+        PlayersReady.remove(id);
     }
-    public List<Player> getReadyPlayers(){
-        return PlayersReady;
+    public List<Player> getReadyPlayers(){List<Player> players = new ArrayList<>();
+        for (UUID id:PlayersReady) {
+            players.add(Bukkit.getPlayer(id));
+        }
+        return players;
     }
     public boolean playersReadyHasPlayer(Player player){
-        return PlayersReady.contains(player);
+        return PlayersReady.contains(player.getUniqueId());
     }
     public boolean checkReadyPlayer(Player player){
-        if(PlayersReady.contains(player)){
-            return true;
-        }else {
-            return false;
-        }
+        return PlayersReady.contains(player.getUniqueId());
     }
-    public void addPlayerKit(Player player, Kits kit){
-        if(!PlayerKit.containsKey(player)){
-            PlayerKit.put(player,kit);
+    public void setPlayerKit(Player player, Kits kit){
+        UUID id = player.getUniqueId();
+        if(!PlayerKit.containsKey(id)){
+            PlayerKit.put(id,kit);
         }else{
-            PlayerKit.replace(player, kit);
+            PlayerKit.replace(id, kit);
         }
 
     }
     public Kits getPlayerKit(Player player){
-        if(PlayerKit.containsKey(player)){
-            return PlayerKit.get(player);
+        UUID id = player.getUniqueId();
+        if(PlayerKit.containsKey(id)){
+            return PlayerKit.get(id);
         }else{
             return Kits.None;
         }
     }
     public void addAlivePlayer(Player player){
-        if(!AlivePlayers.contains(player)){
-            AlivePlayers.add(player);
+        UUID id = player.getUniqueId();
+        if(!AlivePlayers.contains(id)){
+            AlivePlayers.add(id);
         }
     }
     public void removeAlivePlayer(Player player){
-        if(AlivePlayers.contains(player)){
-            AlivePlayers.remove(player);
-        }
+        UUID id = player.getUniqueId();
+        AlivePlayers.remove(id);
     }
     public List<Player> getAlivePlayers(){
-        return AlivePlayers;
+        List<Player> players = new ArrayList<>();
+        for (UUID id:AlivePlayers) {
+            players.add(Bukkit.getPlayer(id));
+        }
+        return players;
     }
     public void addDeadPlayer(Player player){
-        if(!DeadPlayers.contains(player)){
-            DeadPlayers.add(player);
+        UUID id = player.getUniqueId();
+        if(!DeadPlayers.contains(id)){
+            DeadPlayers.add(id);
         }
     }
     public void removeDeadPlayer(Player player){
-        if(DeadPlayers.contains(player)){
-            DeadPlayers.remove(player);
-        }
+        UUID id = player.getUniqueId();
+        DeadPlayers.remove(id);
     }
     public List<Player> getDeadPlayers(){
-        return DeadPlayers;
+        List<Player> players = new ArrayList<>();
+        for (UUID id:DeadPlayers) {
+            players.add(Bukkit.getPlayer(id));
+        }
+        return players;
     }
     public int getRemainingPlayers(){
         return AlivePlayers.size();
@@ -116,4 +133,29 @@ public class GameUtils {
     public void setFinishedStatus(boolean finished){
         IsGameFinished = finished;
     }
+    public void setGladiator(Player player){
+        Gladiator =player.getUniqueId();
+    }
+    public Player getGladiator(){
+        return Bukkit.getPlayer(Gladiator);
+    }
+    public void setGladiatorLastPos(Location pos){
+        GladiatorLastPos =pos;
+    }
+    public Location getGladiatorLastPos(){
+        return GladiatorLastPos;
+    }
+    public void setGladiatedLastPos(Location pos){
+        GladiatedLastPos = pos;
+    }
+    public Location getGladiatedLastPos(){
+        return GladiatedLastPos;
+    }
+    public void setGladiated(Player player){
+        Gladiated =player.getUniqueId();
+    }
+    public Player getGladiated(){
+        return Bukkit.getPlayer(Gladiated);
+    }
+
 }
