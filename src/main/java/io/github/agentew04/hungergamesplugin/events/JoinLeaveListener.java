@@ -1,6 +1,7 @@
 package io.github.agentew04.hungergamesplugin.events;
 
 import io.github.agentew04.hungergamesplugin.HungerGamesPlugin;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -34,6 +35,9 @@ public class JoinLeaveListener implements Listener {
         }else{
             main.game.addPlayerInGame(player);
             e.setJoinMessage(ChatColor.GREEN +player.getDisplayName()+" entrou no jogo");
+            Bukkit.getLogger().info("uuid: "+player.getUniqueId());
+            Bukkit.getLogger().info("lastkit: "+main.game.getPlayerKit(player));
+
         }
     }
 }

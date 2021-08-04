@@ -4,11 +4,11 @@ import com.onarandombox.MultiverseCore.MultiverseCore;
 import io.github.agentew04.hungergamesplugin.commands.*;
 import io.github.agentew04.hungergamesplugin.events.*;
 import io.github.agentew04.hungergamesplugin.kitevents.*;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -32,19 +32,20 @@ public final class HungerGamesPlugin extends JavaPlugin {
         }
 
         //commands
-        this.getCommand("kit").setExecutor(new KitCommand(this));
-        this.getCommand("start").setExecutor(new StartCommand(this));
-        this.getCommand("ping").setExecutor(new PingCommand());
-        this.getCommand("ready").setExecutor(new ReadyCommand(this));
-        this.getCommand("ore").setExecutor(new OreCommand());
+        Objects.requireNonNull(this.getCommand("kit")).setExecutor(new KitCommand(this));
+        Objects.requireNonNull(this.getCommand("start")).setExecutor(new StartCommand(this));
+        Objects.requireNonNull(this.getCommand("ping")).setExecutor(new PingCommand());
+        Objects.requireNonNull(this.getCommand("ready")).setExecutor(new ReadyCommand(this));
+        Objects.requireNonNull(this.getCommand("ore")).setExecutor(new OreCommand());
 
         //listeners
         this.getServer().getPluginManager().registerEvents(new ResoupListener(), this);
         this.getServer().getPluginManager().registerEvents(new GoldenAppleListener(), this);
         this.getServer().getPluginManager().registerEvents(new JoinLeaveListener(this),this);
+        this.getServer().getPluginManager().registerEvents(new DeathListener(this),this);
 
         //game
-        this.game = new GameUtils(this);
+        this.game = new GameUtils();
 
         //recipes
         AddCustomSoup();
@@ -59,9 +60,9 @@ public final class HungerGamesPlugin extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new GraplerListener(this), this);
         this.getServer().getPluginManager().registerEvents(new KangaroListener(this), this);
         this.getServer().getPluginManager().registerEvents(new ViperListener(this), this);
-        //this.getServer().getPluginManager().registerEvents(new ArcherListener(this),this);
         this.getServer().getPluginManager().registerEvents(new GladiatorListener(this),this);
         this.getServer().getPluginManager().registerEvents(new WormListener(this),this);
+        this.getServer().getPluginManager().registerEvents(new StomperListener(this),this);
 
         getLogger().info("Inicializacao completa");
     }
@@ -108,8 +109,9 @@ public final class HungerGamesPlugin extends JavaPlugin {
         Material.COOKED_MUTTON,Material.COOKED_PORKCHOP,Material.COOKED_SALMON,
         Material.COOKED_RABBIT};
         ItemStack sopa = new ItemStack(Material.MUSHROOM_STEW);
-        ItemMeta meta = sopa.getItemMeta();
+        ItemMeta meta = sopa.hasItemMeta() ? sopa.getItemMeta() : Bukkit.getItemFactory().getItemMeta(Material.MUSHROOM_STEW);
 
+        assert meta != null;
         meta.setDisplayName("§aSopa de macaco");
         sopa.setItemMeta(meta);
         sopa.addUnsafeEnchantment(Enchantment.ARROW_INFINITE,1);
@@ -160,7 +162,8 @@ public final class HungerGamesPlugin extends JavaPlugin {
 
         //result item
         ItemStack pickaxe = new ItemStack(Material.STONE_PICKAXE);
-        ItemMeta meta = pickaxe.getItemMeta();
+        ItemMeta meta = pickaxe.hasItemMeta() ? pickaxe.getItemMeta() : Bukkit.getItemFactory().getItemMeta(Material.STONE_PICKAXE);
+        assert meta != null;
         meta.addEnchant(Enchantment.DIG_SPEED,2,false);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         pickaxe.setItemMeta(meta);
@@ -188,7 +191,8 @@ public final class HungerGamesPlugin extends JavaPlugin {
 
         //result item
         ItemStack pickaxe = new ItemStack(Material.IRON_PICKAXE);
-        ItemMeta meta = pickaxe.getItemMeta();
+        ItemMeta meta = pickaxe.hasItemMeta() ? pickaxe.getItemMeta() : Bukkit.getItemFactory().getItemMeta(Material.IRON_PICKAXE);
+        assert meta != null;
         meta.addEnchant(Enchantment.DIG_SPEED,3,false);
         meta.addEnchant(Enchantment.DURABILITY,1,false);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -209,7 +213,8 @@ public final class HungerGamesPlugin extends JavaPlugin {
 
         //result item
         ItemStack pickaxe = new ItemStack(Material.DIAMOND_PICKAXE);
-        ItemMeta meta = pickaxe.getItemMeta();
+        ItemMeta meta = pickaxe.hasItemMeta() ? pickaxe.getItemMeta() : Bukkit.getItemFactory().getItemMeta(Material.DIAMOND_PICKAXE);
+        assert meta != null;
         meta.addEnchant(Enchantment.DIG_SPEED,5,false);
         meta.addEnchant(Enchantment.LOOT_BONUS_BLOCKS,1,false);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);

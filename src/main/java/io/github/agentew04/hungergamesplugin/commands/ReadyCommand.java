@@ -127,6 +127,8 @@ public class ReadyCommand implements CommandExecutor {
 
             //set scoreboard
             player.setScoreboard(scoreBoard);
+
+            main.game.addAlivePlayer(player);
         }
     }
     public void giveKitItem(Player player, Kits kit){
@@ -140,12 +142,14 @@ public class ReadyCommand implements CommandExecutor {
                 meta.setDisplayName(ChatColor.DARK_PURPLE+"Machado do lenhador");
                 meta.addEnchant(Enchantment.DURABILITY,1,false);
                 item.setItemMeta(meta);
+                break;
             case Gladiator:
                 item = new ItemStack(Material.NETHERITE_HOE);
                 meta = item.hasItemMeta()?item.getItemMeta():Bukkit.getItemFactory().getItemMeta(item.getType());
                 meta.addEnchant(Enchantment.ARROW_INFINITE,1,true);
                 meta.setUnbreakable(true);
                 meta.setDisplayName(ChatColor.DARK_PURPLE+"A foice do x1");
+                break;
             case Fisherman:
                 item = new ItemStack(Material.FISHING_ROD);
                 meta = item.hasItemMeta()?item.getItemMeta():Bukkit.getItemFactory().getItemMeta(item.getType());
@@ -153,16 +157,19 @@ public class ReadyCommand implements CommandExecutor {
                 meta.setUnbreakable(true);
                 meta.setDisplayName(ChatColor.DARK_PURPLE+"Vara do pescador");
                 item.setItemMeta(meta);
+                break;
             case Kangaro:
                 item = new ItemStack(Material.FIREWORK_ROCKET);
                 meta = item.hasItemMeta()?item.getItemMeta():Bukkit.getItemFactory().getItemMeta(item.getType());
                 meta.setDisplayName(ChatColor.DARK_PURPLE+"Pulo do Canguru");
                 item.setItemMeta(meta);
+                break;
             case Grapler:
                 item = new ItemStack(Material.TRIPWIRE_HOOK);
                 meta = item.hasItemMeta()?item.getItemMeta():Bukkit.getItemFactory().getItemMeta(item.getType());
                 meta.setDisplayName(ChatColor.DARK_PURPLE+"Grapling Hook");
                 item.setItemMeta(meta);
+                break;
             case WolfTamer:
                 item = new ItemStack(Material.WOLF_SPAWN_EGG,10);
                 meta = item.hasItemMeta()?item.getItemMeta():Bukkit.getItemFactory().getItemMeta(item.getType());
@@ -174,8 +181,17 @@ public class ReadyCommand implements CommandExecutor {
                 item2.setItemMeta(meta);
                 player.getInventory().addItem(item,item2);
                 return;
+            case Archer:
+                item = new ItemStack(Material.BOW);
+                meta = item.hasItemMeta()?item.getItemMeta():Bukkit.getItemFactory().getItemMeta(item.getType());
+                meta.setDisplayName(ChatColor.DARK_PURPLE+"Arco-Escudo Imortal");
+                meta.setUnbreakable(true);
+                meta.addEnchant(Enchantment.ARROW_DAMAGE,2,true);
+                item.setItemMeta(meta);
+                break;
             default:
                 item = new ItemStack(Material.AIR);
+                break;
         }
         player.getInventory().addItem(item);
     }

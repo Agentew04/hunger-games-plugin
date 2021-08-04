@@ -23,12 +23,18 @@ public class GladiatorListener implements Listener {
             return;
         }
         if(e.getPlayer().getInventory().getItemInMainHand().getType()== Material.NETHERITE_HOE && main.game.getPlayerKit(e.getPlayer())== Kits.Gladiator){
+            if(main.game.getGladiatorStatus()){
+                e.getPlayer().sendMessage(ChatColor.RED+"Um x1 já está em progesso!");
+                return;
+            }
+
             Player clicker = e.getPlayer();
             Player clicked = (Player) e.getRightClicked();
             main.game.setGladiator(clicker);
             main.game.setGladiatorLastPos(clicker.getLocation());
             main.game.setGladiated(clicked);
             main.game.setGladiatedLastPos(clicked.getLocation());
+            main.game.setGladiatorStatus(true);
             World world = Bukkit.getWorld("glad");
 
             clicked.teleport(new Location(world,238.5,-59,67.5,0,0));
@@ -44,7 +50,8 @@ public class GladiatorListener implements Listener {
             //gladiator died
             Bukkit.broadcastMessage(ChatColor.YELLOW+main.game.getGladiated().getDisplayName() + ChatColor.GREEN+
                     " se sobresaiu e venceu "
-                    + ChatColor.YELLOW+player.getDisplayName() + ChatColor.GREEN+"!!!");
+                    + ChatColor.YELLOW+player.getDisplayName()
+                    + ChatColor.GREEN+"!!!");
 
             //tp alive back
             main.game.getGladiated().teleport(main.game.getGladiatedLastPos());
@@ -52,12 +59,14 @@ public class GladiatorListener implements Listener {
             //reset for next
             main.game.setGladiator(null);
             main.game.setGladiated(null);
+            main.game.setGladiatorStatus(false);
 
         }else if(player.equals(main.game.getGladiated())) {
             //gladiated died
             Bukkit.broadcastMessage(ChatColor.YELLOW+main.game.getGladiator().getDisplayName() + ChatColor.GREEN+
                     " foi mais forte e derrotou "
-                    + ChatColor.YELLOW+player.getDisplayName() + ChatColor.GREEN+"!!!");
+                    + ChatColor.YELLOW+player.getDisplayName()
+                    + ChatColor.GREEN+"!!!");
 
             //tp alive back
             main.game.getGladiator().teleport(main.game.getGladiatorLastPos());
@@ -65,6 +74,7 @@ public class GladiatorListener implements Listener {
             //reset for next
             main.game.setGladiator(null);
             main.game.setGladiated(null);
+            main.game.setGladiatorStatus(false);
         }
     }
 }

@@ -1,15 +1,15 @@
 package io.github.agentew04.hungergamesplugin;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 public class GameUtils {
-    private final HungerGamesPlugin main;
-    public GameUtils(HungerGamesPlugin main){
-        this.main=main;
+    public GameUtils(){
     }
     //region Game variables
     private final List<UUID> PlayersIngame = new ArrayList<>();
@@ -24,6 +24,7 @@ public class GameUtils {
     private UUID Gladiated =null;
     private Location GladiatorLastPos=null;
     private Location GladiatedLastPos=null;
+    private boolean IsGladiatorStarted=false;
 
     public void addPlayerInGame(Player player){
         UUID id = player.getUniqueId();
@@ -78,11 +79,7 @@ public class GameUtils {
     }
     public Kits getPlayerKit(Player player){
         UUID id = player.getUniqueId();
-        if(PlayerKit.containsKey(id)){
-            return PlayerKit.get(id);
-        }else{
-            return Kits.None;
-        }
+        return PlayerKit.getOrDefault(id, Kits.None);
     }
     public void addAlivePlayer(Player player){
         UUID id = player.getUniqueId();
@@ -106,6 +103,8 @@ public class GameUtils {
         if(!DeadPlayers.contains(id)){
             DeadPlayers.add(id);
         }
+        player.setGameMode(GameMode.SPECTATOR);
+        player.teleport(new Location(Bukkit.getWorld("arena"),0,62,0));
     }
     public void removeDeadPlayer(Player player){
         UUID id = player.getUniqueId();
@@ -133,8 +132,12 @@ public class GameUtils {
     public void setFinishedStatus(boolean finished){
         IsGameFinished = finished;
     }
-    public void setGladiator(Player player){
-        Gladiator =player.getUniqueId();
+    public void setGladiator(@Nullable Player player){
+        if(player==null){
+            Gladiator=null;
+        }else{
+            Gladiator =player.getUniqueId();
+        }
     }
     public Player getGladiator(){
         return Bukkit.getPlayer(Gladiator);
@@ -157,5 +160,10 @@ public class GameUtils {
     public Player getGladiated(){
         return Bukkit.getPlayer(Gladiated);
     }
-
+    public boolean getGladiatorStatus(){
+        return IsGladiatorStarted;
+    }
+    public void setGladiatorStatus(boolean gladiatorStatus){
+        IsGladiatorStarted=gladiatorStatus;
+    }
 }

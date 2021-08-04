@@ -23,7 +23,7 @@ public class GoldenAppleListener implements Listener {
         e.setCancelled(true);
         ItemStack item = e.getItem();
         if(item.getAmount()==1){
-            item.setType(Material.AIR);
+            player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
         }else{
             item.setAmount(item.getAmount()-1);
         }

@@ -2,7 +2,6 @@ package io.github.agentew04.hungergamesplugin.kitevents;
 
 import io.github.agentew04.hungergamesplugin.HungerGamesPlugin;
 import io.github.agentew04.hungergamesplugin.Kits;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -11,7 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 
 public class FishingListener implements Listener {
-    private HungerGamesPlugin main;
+    private final HungerGamesPlugin main;
     public FishingListener(HungerGamesPlugin main){
         this.main=main;
     }
