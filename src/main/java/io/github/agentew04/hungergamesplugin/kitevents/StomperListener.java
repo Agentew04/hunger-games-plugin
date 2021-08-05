@@ -3,6 +3,8 @@ package io.github.agentew04.hungergamesplugin.kitevents;
 import io.github.agentew04.hungergamesplugin.HungerGamesPlugin;
 import io.github.agentew04.hungergamesplugin.Kits;
 import org.bukkit.Bukkit;
+import org.bukkit.Particle;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -24,6 +26,7 @@ public class StomperListener implements Listener {
     public void onPlayerHit(EntityDamageEvent e){
         if(e.getEntity() instanceof Player){
             Player player = (Player) e.getEntity();
+            World w = player.getWorld();
             Kits kit = main.game.getPlayerKit(player);
 
             //check kit
@@ -34,7 +37,7 @@ public class StomperListener implements Listener {
 
                     //cancel the damage
                     e.setCancelled(true);
-
+                    w.spawnParticle(Particle.BLOCK_CRACK,player.getLocation(),5);
                     //apply damage to others
                     for(Entity ps: player.getNearbyEntities(2,2,2)){
                         if(ps instanceof Player){
@@ -44,9 +47,11 @@ public class StomperListener implements Listener {
                             }
                             ((Player) ps).damage(damagetaken,player);
                             Bukkit.getLogger().info(((Player) ps).getDisplayName()+" tomou dano de stomp de: "+player.getDisplayName());
+
                         }else{
                             Bukkit.getLogger().info("stomper atingiu um "+ps.getName());
                         }
+                        w.spawnParticle(Particle.BLOCK_CRACK,ps.getLocation(),5);
                     }
                 }
             }

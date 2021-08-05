@@ -106,8 +106,8 @@ public final class HungerGamesPlugin extends JavaPlugin {
     //soup
     public void AddCustomSoup(){
         Material[] comidas = new Material[]{Material.COOKED_BEEF,Material.COOKED_CHICKEN,Material.COOKED_COD,
-        Material.COOKED_MUTTON,Material.COOKED_PORKCHOP,Material.COOKED_SALMON,
-        Material.COOKED_RABBIT};
+                Material.COOKED_MUTTON,Material.COOKED_PORKCHOP,Material.COOKED_SALMON,
+                Material.COOKED_RABBIT};
         ItemStack sopa = new ItemStack(Material.MUSHROOM_STEW);
         ItemMeta meta = sopa.hasItemMeta() ? sopa.getItemMeta() : Bukkit.getItemFactory().getItemMeta(Material.MUSHROOM_STEW);
 
