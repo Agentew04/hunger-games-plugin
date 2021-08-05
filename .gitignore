@@ -111,3 +111,6 @@ buildNumber.properties
 
 # Common working directory
 run/
+src/main/java/io/github/agentew04/hungergamesplugin/raycast/RaycastAPIMath.java
+src/main/java/io/github/agentew04/hungergamesplugin/raycast/Raycast.java
+src/main/java/io/github/agentew04/hungergamesplugin/raycast/RaycastAPIMath.java

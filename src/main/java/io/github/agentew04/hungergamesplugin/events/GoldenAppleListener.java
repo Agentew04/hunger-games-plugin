@@ -1,7 +1,6 @@
 package io.github.agentew04.hungergamesplugin.events;
 
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,12 +20,27 @@ public class GoldenAppleListener implements Listener {
         player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION,120*20,1));
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION,7*20,1));
         e.setCancelled(true);
-        ItemStack item = e.getItem();
-        if(item.getAmount()==1){
-            player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
-        }else{
-            item.setAmount(item.getAmount()-1);
+        boolean inMainHand=true;
+        if(!player.getInventory().getItemInMainHand().getType().equals(Material.GOLDEN_APPLE)) {
+            inMainHand = false;
         }
+        ItemStack item = e.getItem();
+        if(inMainHand){
+            if(item.getAmount()==1){
+                player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+            }else{
+                item.setAmount(item.getAmount()-1);
+                player.getInventory().setItemInMainHand(item);
+            }
+        }else{
+            if(item.getAmount()==1){
+                player.getInventory().setItemInOffHand(new ItemStack(Material.AIR));
+            }else{
+                item.setAmount(item.getAmount()-1);
+                player.getInventory().setItemInOffHand(item);
+            }
+        }
+
         //player.setItemInHand(item);
         player.setFoodLevel(player.getFoodLevel()+4);
     }
