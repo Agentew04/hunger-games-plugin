@@ -18,10 +18,10 @@ public class JoinLeaveListener implements Listener {
         Player player = e.getPlayer();
         e.quitMessage(main.getQuitMessage(player));
 
-        if(!main.game.getStartStatus()){
-            main.game.removePlayerInGame(player);
-        }else{
+        if(main.game.getStartStatus()){
             main.game.removeAlivePlayer(player);
+        }else{
+            main.game.removePlayerInGame(player);
         }
     }
     @EventHandler

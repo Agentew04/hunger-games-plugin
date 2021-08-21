@@ -74,7 +74,7 @@ public class ReadyCommand implements CommandExecutor {
         StartMatch();
     }
     public void StartMatch(){
-        //create scoreboard
+        //region scoreboard
         ScoreboardManager manager= Bukkit.getServer().getScoreboardManager();
         Scoreboard scoreBoard = manager.getNewScoreboard();
         Component title = Component.text("☠",NamedTextColor.DARK_RED)
@@ -82,7 +82,10 @@ public class ReadyCommand implements CommandExecutor {
                 .append(Component.text("☠",NamedTextColor.DARK_RED));
         Objective objective = scoreBoard.registerNewObjective("killcount","playerKillCount",title);
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+        //endregion
 
+        main.game.setStartStatus(true);
+        main.game.setFinishedStatus(false);
         World targetWorld = Bukkit.getWorld("arena");
         assert targetWorld != null;
         int maxrange=500;
@@ -107,10 +110,7 @@ public class ReadyCommand implements CommandExecutor {
             }
 
             //tp player
-            core.teleportPlayer(Bukkit.getServer().getConsoleSender(), player, new Location(targetWorld,
-                    x,
-                    y,
-                    z));
+            core.teleportPlayer(Bukkit.getServer().getConsoleSender(), player, new Location(targetWorld,x,y,z));
 
             //clear inventory
             player.getInventory().clear();

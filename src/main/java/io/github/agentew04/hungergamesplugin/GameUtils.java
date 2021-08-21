@@ -3,7 +3,9 @@ package io.github.agentew04.hungergamesplugin;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -12,13 +14,11 @@ public class GameUtils {
     public GameUtils(){
     }
     //region Game variables
-    private final List<UUID> PlayersIngame = new ArrayList<>();
     private final List<UUID> PlayersReady = new ArrayList<>();
     private final Map<UUID,Kits> PlayerKit = new HashMap<>();
-    private final List<UUID> AlivePlayers = new ArrayList<>();
-    private final List<UUID> DeadPlayers = new ArrayList<>();
+    private final List<UUID> Players = new ArrayList<>();
+    private final List<UUID> Spectators = new ArrayList<>();
     private boolean IsGameStarted = false;
-    private boolean IsGameFinished = false;
 
     private UUID Gladiator =null;
     private UUID Gladiated =null;
@@ -26,26 +26,6 @@ public class GameUtils {
     private Location GladiatedLastPos=null;
     private boolean IsGladiatorStarted=false;
 
-    public void addPlayerInGame(Player player){
-        UUID id = player.getUniqueId();
-        if(!PlayersIngame.contains(id)){
-            PlayersIngame.add(id);
-        }
-    }
-    public void removePlayerInGame(Player player){
-        UUID id = player.getUniqueId();
-        PlayersIngame.remove(id);
-    }
-    public List<Player> getPlayersIngame(){
-        List<Player> players = new ArrayList<>();
-        for (UUID id:PlayersIngame) {
-            players.add(Bukkit.getPlayer(id));
-        }
-        return players;
-    }
-    public boolean playersInGameHasPlayer(Player player){
-        return PlayersIngame.contains(player.getUniqueId());
-    }
     public void addReadyPlayer(Player player){
         UUID id = player.getUniqueId();
         if(!PlayersReady.contains(id)){
@@ -83,54 +63,48 @@ public class GameUtils {
     }
     public void addAlivePlayer(Player player){
         UUID id = player.getUniqueId();
-        if(!AlivePlayers.contains(id)){
-            AlivePlayers.add(id);
+        if(!Players.contains(id)){
+            Players.add(id);
         }
     }
     public void removeAlivePlayer(Player player){
         UUID id = player.getUniqueId();
-        AlivePlayers.remove(id);
+        Players.remove(id);
     }
-    public List<Player> getAlivePlayers(){
+    public List<Player> getPlayers(){
         List<Player> players = new ArrayList<>();
-        for (UUID id:AlivePlayers) {
+        for (UUID id: Players) {
             players.add(Bukkit.getPlayer(id));
         }
         return players;
     }
     public void addDeadPlayer(Player player){
         UUID id = player.getUniqueId();
-        if(!DeadPlayers.contains(id)){
-            DeadPlayers.add(id);
+        if(!Spectators.contains(id)){
+            Spectators.add(id);
         }
         player.setGameMode(GameMode.SPECTATOR);
         player.teleport(new Location(Bukkit.getWorld("arena"),0,62,0));
     }
     public void removeDeadPlayer(Player player){
         UUID id = player.getUniqueId();
-        DeadPlayers.remove(id);
+        Spectators.remove(id);
     }
-    public List<Player> getDeadPlayers(){
+    public List<Player> getSpectators(){
         List<Player> players = new ArrayList<>();
-        for (UUID id:DeadPlayers) {
+        for (UUID id: Spectators) {
             players.add(Bukkit.getPlayer(id));
         }
         return players;
     }
     public int getRemainingPlayers(){
-        return AlivePlayers.size();
+        return Players.size();
     }
     public boolean getStartStatus(){
         return  IsGameStarted;
     }
     public void setStartStatus(boolean started){
         IsGameStarted=started;
-    }
-    public boolean getFinishedStatus(){
-        return IsGameFinished;
-    }
-    public void setFinishedStatus(boolean finished){
-        IsGameFinished = finished;
     }
     public void setGladiator(@Nullable Player player){
         if(player==null){
@@ -166,4 +140,52 @@ public class GameUtils {
     public void setGladiatorStatus(boolean gladiatorStatus){
         IsGladiatorStarted=gladiatorStatus;
     }
+
+    public void StartBorder(){
+        WorldBorder wb = Bukkit.getWorld("arena").getWorldBorder();
+        BukkitRunnable b1 = new BukkitRunnable() {
+            @Override
+            public void run() {
+                
+            }
+        };
+        BukkitRunnable b2 = new BukkitRunnable() {
+            @Override
+            public void run() {
+
+            }
+        };
+        BukkitRunnable b3 = new BukkitRunnable() {
+            @Override
+            public void run() {
+
+            }
+        };
+        BukkitRunnable b4 = new BukkitRunnable() {
+            @Override
+            public void run() {
+
+            }
+        };
+        BukkitRunnable b5 = new BukkitRunnable() {
+            @Override
+            public void run() {
+
+            }
+        };
+        BukkitRunnable b6 = new BukkitRunnable() {
+            @Override
+            public void run() {
+
+            }
+        };
+        BukkitRunnable b7 = new BukkitRunnable() {
+            @Override
+            public void run() {
+
+            }
+        };
+        b1.run();
+    }
+
 }
