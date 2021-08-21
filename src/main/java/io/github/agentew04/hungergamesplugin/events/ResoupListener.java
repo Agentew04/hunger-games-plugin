@@ -1,5 +1,6 @@
 package io.github.agentew04.hungergamesplugin.events;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
@@ -7,12 +8,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class ResoupListener implements Listener {
-    public static int HealAmount = 6;
+    public final static int HealAmount = 6;
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e){
@@ -35,7 +35,7 @@ public class ResoupListener implements Listener {
             e.getItem().setType(Material.BOWL);
             e.getItem().removeEnchantment(Enchantment.ARROW_INFINITE);
             ItemMeta meta = e.getItem().getItemMeta();
-            meta.setDisplayName(meta.getLocalizedName());
+            meta.displayName(Component.text(meta.getLocalizedName()));
             e.getItem().setItemMeta(meta);
         }
     }

@@ -4,11 +4,15 @@ import com.onarandombox.MultiverseCore.MultiverseCore;
 import io.github.agentew04.hungergamesplugin.commands.*;
 import io.github.agentew04.hungergamesplugin.events.*;
 import io.github.agentew04.hungergamesplugin.kitevents.*;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -24,6 +28,7 @@ public final class HungerGamesPlugin extends JavaPlugin {
     public GameUtils game;
     private final File usersFile = new File(getDataFolder(),"users.yml");
     private final FileConfiguration usersConfig = YamlConfiguration.loadConfiguration(usersFile);
+
     @Override
     public void onEnable() {
         //create users.yml
@@ -43,6 +48,7 @@ public final class HungerGamesPlugin extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new GoldenAppleListener(), this);
         this.getServer().getPluginManager().registerEvents(new JoinLeaveListener(this),this);
         this.getServer().getPluginManager().registerEvents(new DeathListener(this),this);
+        this.getServer().getPluginManager().registerEvents(new WorldBorderListener(this),this);
 
         //game
         this.game = new GameUtils();
@@ -112,7 +118,7 @@ public final class HungerGamesPlugin extends JavaPlugin {
         ItemMeta meta = sopa.hasItemMeta() ? sopa.getItemMeta() : Bukkit.getItemFactory().getItemMeta(Material.MUSHROOM_STEW);
 
         assert meta != null;
-        meta.setDisplayName("§aSopa de macaco");
+        meta.displayName(Component.text("Sopa de macaco",NamedTextColor.GREEN));
         sopa.setItemMeta(meta);
         sopa.addUnsafeEnchantment(Enchantment.ARROW_INFINITE,1);
 
@@ -239,5 +245,11 @@ public final class HungerGamesPlugin extends JavaPlugin {
             return null;
         }
     }
+    public Component getJoinMessage(Player player){
+        return player.displayName().color(NamedTextColor.DARK_GREEN).decorate(TextDecoration.BOLD).append(Component.text(" entrou no jogo").color(NamedTextColor.GREEN));
+    }
 
+    public Component getQuitMessage(Player player){
+        return player.displayName().color(NamedTextColor.DARK_RED).decorate(TextDecoration.BOLD).append(Component.text(" saiu do jogo").color(NamedTextColor.RED));
+    }
 }

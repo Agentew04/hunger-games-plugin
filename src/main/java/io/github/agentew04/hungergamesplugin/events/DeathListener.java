@@ -5,7 +5,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 public class DeathListener implements Listener {
@@ -20,7 +19,7 @@ public class DeathListener implements Listener {
         if(main.game.getAlivePlayers().contains(player)){
             main.game.removeAlivePlayer(player);
             main.game.addDeadPlayer(player);
-            Bukkit.getLogger().info(player.getDisplayName()+" adicionado na equipe dos mortos");
+            Bukkit.getLogger().info(player.displayName()+" adicionado na equipe dos mortos");
         }
     }
 }

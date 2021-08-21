@@ -10,7 +10,7 @@ public class PingCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(sender instanceof Player){
             Player player = (Player) sender;
-            player.sendMessage("Ping: "+String.valueOf(player.getPing())+" ms");
+            player.sendMessage("Ping: "+ player.getPing() +" ms");
             return true;
         }
         return false;

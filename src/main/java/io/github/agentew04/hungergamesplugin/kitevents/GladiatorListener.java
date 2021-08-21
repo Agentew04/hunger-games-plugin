@@ -2,6 +2,8 @@ package io.github.agentew04.hungergamesplugin.kitevents;
 
 import io.github.agentew04.hungergamesplugin.HungerGamesPlugin;
 import io.github.agentew04.hungergamesplugin.Kits;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -39,7 +41,11 @@ public class GladiatorListener implements Listener {
 
             clicked.teleport(new Location(world,238.5,-59,67.5,0,0));
             clicker.teleport(new Location(world,238.5,-59,95.5,180,0));
-            Bukkit.broadcastMessage(ChatColor.YELLOW+clicker.getDisplayName()+ChatColor.GREEN+" desafiou "+ChatColor.YELLOW+clicked.getDisplayName()+ChatColor.GREEN+" para um x1!");
+            Component msg = clicker.displayName().color(NamedTextColor.YELLOW)
+                    .append(Component.text(" desafiou ",NamedTextColor.GREEN))
+                    .append(clicked.displayName().color(NamedTextColor.YELLOW))
+                    .append(Component.text(" para um x1!", NamedTextColor.GREEN));
+            Bukkit.broadcast(msg);
         }
     }
 
@@ -48,10 +54,11 @@ public class GladiatorListener implements Listener {
         Player player = e.getEntity();
         if(player.equals(main.game.getGladiator())){
             //gladiator died
-            Bukkit.broadcastMessage(ChatColor.YELLOW+main.game.getGladiated().getDisplayName() + ChatColor.GREEN+
-                    " se sobresaiu e venceu "
-                    + ChatColor.YELLOW+player.getDisplayName()
-                    + ChatColor.GREEN+"!!!");
+            Component msg = main.game.getGladiated().displayName().color(NamedTextColor.YELLOW)
+                    .append(Component.text(" se sobresaiu e venceu",NamedTextColor.GREEN))
+                    .append(player.displayName().color(NamedTextColor.YELLOW))
+                    .append(Component.text("!!!",NamedTextColor.GREEN));
+            Bukkit.broadcast(msg);
 
             //tp alive back
             main.game.getGladiated().teleport(main.game.getGladiatedLastPos());
@@ -63,10 +70,12 @@ public class GladiatorListener implements Listener {
 
         }else if(player.equals(main.game.getGladiated())) {
             //gladiated died
-            Bukkit.broadcastMessage(ChatColor.YELLOW+main.game.getGladiator().getDisplayName() + ChatColor.GREEN+
-                    " foi mais forte e derrotou "
-                    + ChatColor.YELLOW+player.getDisplayName()
-                    + ChatColor.GREEN+"!!!");
+            Component msg = main.game.getGladiator().displayName().color(NamedTextColor.YELLOW)
+                    .append(Component.text(" foi mais forte e derrotou ",NamedTextColor.GREEN))
+                    .append(player.displayName().color(NamedTextColor.YELLOW))
+                    .append(Component.text("!!!",NamedTextColor.GREEN));
+
+            Bukkit.broadcast(msg);
 
             //tp alive back
             main.game.getGladiator().teleport(main.game.getGladiatorLastPos());

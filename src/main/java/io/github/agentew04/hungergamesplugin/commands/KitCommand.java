@@ -17,16 +17,16 @@ public class KitCommand implements CommandExecutor {
         this.main=main;
     }
 
-    public String[] StomperNames = new String[]{"stomper","stp","stomp"};
-    public String[] LumberJackNames = new String[]{"lumberjack","lumber","jack","lj","l","j","wood","axe"};
-    public String[] WormNames = new String[]{"worm","w","dirt","grass"};
-    public String[] GladiatorNames = new String[]{"gladiator","glad","g","1v1","1x1"};
-    public String[] KangaroNames = new String[]{"kangaro","canguru","c","kang","kangaroo","cangaroo","jump"};
-    public String[] GraplerNames = new String[]{"grapler","graplinghook","grapling","hook","gh","grap"};
-    public String[] FishermanNames = new String[]{"fish","grap","fisherman","fishingrod","rod","fishing"};
-    public String[] ViperNames = new String[]{"viper","vipe","v","vip","poison","veneno"};
-    public String[] WolfTamerNames = new String[]{"wolf","tamer","animal","dog","wolftamer","dogtamer"};
-    public String[] ArcherNames = new String[]{"archer","arch","bow","arqueiro","arco","ranged"};
+    public final String[] StomperNames = new String[]{"stomper","stp","stomp"};
+    public final String[] LumberJackNames = new String[]{"lumberjack","lumber","jack","lj","l","j","wood","axe"};
+    public final String[] WormNames = new String[]{"worm","w","dirt","grass"};
+    public final String[] GladiatorNames = new String[]{"gladiator","glad","g","1v1","1x1"};
+    public final String[] KangaroNames = new String[]{"kangaro","canguru","c","kang","kangaroo","cangaroo","jump"};
+    public final String[] GraplerNames = new String[]{"grapler","graplinghook","grapling","hook","gh","grap"};
+    public final String[] FishermanNames = new String[]{"fish","grap","fisherman","fishingrod","rod","fishing"};
+    public final String[] ViperNames = new String[]{"viper","vipe","v","vip","poison","veneno"};
+    public final String[] WolfTamerNames = new String[]{"wolf","tamer","animal","dog","wolftamer","dogtamer"};
+    public final String[] ArcherNames = new String[]{"archer","arch","bow","arqueiro","arco","ranged"};
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

@@ -1,8 +1,9 @@
 package io.github.agentew04.hungergamesplugin.commands;
 
 import com.onarandombox.MultiverseCore.MultiverseCore;
-import com.onarandombox.MultiverseCore.api.MultiverseWorld;
 import io.github.agentew04.hungergamesplugin.HungerGamesPlugin;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.command.Command;
@@ -11,12 +12,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Collection;
-import java.util.Random;
 
 public class StartCommand implements CommandExecutor {
 
     private final HungerGamesPlugin main;
-    private MultiverseCore core;
+    private final MultiverseCore core;
 
     public StartCommand(HungerGamesPlugin main){
         this.main = main;
@@ -31,12 +31,17 @@ public class StartCommand implements CommandExecutor {
             main.game.addPlayerInGame(playeringame);
         }
 
-        Bukkit.broadcastMessage(ChatColor.GREEN+"Gerando o mundo, aguarde...");
+        Bukkit.broadcast(Component.text("Gerando o mundo, aguarde...", NamedTextColor.GREEN));
+
         core.deleteWorld("arena");
         CreateWorld();
         //core.getMVWorldManager().addWorld("arena", World.Environment.NORMAL,null,WorldType.NORMAL,true,null);
-        Bukkit.broadcastMessage(ChatColor.GREEN+"O novo mundo foi gerado!");
-        Bukkit.broadcastMessage(ChatColor.GREEN +"Selecione o seu kit com "+ChatColor.YELLOW+"/kit"+ChatColor.GREEN+" e digite "+ ChatColor.YELLOW +"/ready");
+        Bukkit.broadcast(Component.text("O novo mundo foi gerado!", NamedTextColor.GREEN));
+        Component msg = Component.text("Selecione o seu kit com ",NamedTextColor.GREEN)
+                .append(Component.text("/kit",NamedTextColor.YELLOW))
+                .append(Component.text(" e digite ",NamedTextColor.GREEN))
+                .append(Component.text("/ready",NamedTextColor.YELLOW));
+        Bukkit.broadcast(msg);
         return true;
     }
     public void CreateWorld(){
@@ -49,13 +54,9 @@ public class StartCommand implements CommandExecutor {
         }
     }
     public boolean isOcean(Biome biome){
-        if(biome == Biome.OCEAN ||biome == Biome.COLD_OCEAN ||biome == Biome.DEEP_COLD_OCEAN ||
-                biome == Biome.DEEP_FROZEN_OCEAN ||biome == Biome.DEEP_OCEAN ||biome == Biome.DEEP_LUKEWARM_OCEAN ||
-                biome == Biome.DEEP_WARM_OCEAN ||biome == Biome.FROZEN_OCEAN ||biome == Biome.LUKEWARM_OCEAN ||
-                biome == Biome.WARM_OCEAN){
-            return true;
-        }else{
-            return false;
-        }
+        return biome == Biome.OCEAN || biome == Biome.COLD_OCEAN || biome == Biome.DEEP_COLD_OCEAN ||
+                biome == Biome.DEEP_FROZEN_OCEAN || biome == Biome.DEEP_OCEAN || biome == Biome.DEEP_LUKEWARM_OCEAN ||
+                biome == Biome.DEEP_WARM_OCEAN || biome == Biome.FROZEN_OCEAN || biome == Biome.LUKEWARM_OCEAN ||
+                biome == Biome.WARM_OCEAN;
     }
 }
