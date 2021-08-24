@@ -27,10 +27,6 @@ public class StartCommand implements CommandExecutor {
         //cadatrade all players in config
         Collection<? extends Player> players = Bukkit.getServer().getOnlinePlayers();
 
-        for(Player playeringame: players){
-            main.game.addPlayerInGame(playeringame);
-        }
-
         Bukkit.broadcast(Component.text("Gerando o mundo, aguarde...", NamedTextColor.GREEN));
 
         core.deleteWorld("arena");

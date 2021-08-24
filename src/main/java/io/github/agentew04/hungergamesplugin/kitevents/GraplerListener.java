@@ -2,7 +2,6 @@ package io.github.agentew04.hungergamesplugin.kitevents;
 
 import io.github.agentew04.hungergamesplugin.HungerGamesPlugin;
 import io.github.agentew04.hungergamesplugin.Kits;
-import io.github.agentew04.hungergamesplugin.RayTrace;
 import io.github.agentew04.hungergamesplugin.raycast.Raycast;
 import org.bukkit.*;
 import org.bukkit.entity.Player;

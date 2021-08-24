@@ -48,10 +48,10 @@ public final class HungerGamesPlugin extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new GoldenAppleListener(), this);
         this.getServer().getPluginManager().registerEvents(new JoinLeaveListener(this),this);
         this.getServer().getPluginManager().registerEvents(new DeathListener(this),this);
-        this.getServer().getPluginManager().registerEvents(new WorldBorderListener(this),this);
+        this.getServer().getPluginManager().registerEvents(new WorldBorderListener(),this);
 
         //game
-        this.game = new GameUtils();
+        this.game = new GameUtils(this);
 
         //recipes
         AddCustomSoup();

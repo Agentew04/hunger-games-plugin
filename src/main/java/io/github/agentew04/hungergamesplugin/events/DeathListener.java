@@ -29,7 +29,7 @@ public class DeathListener implements Listener {
         Player player = e.getPlayer();
         if(main.game.getPlayers().contains(player)){
             main.game.removeAlivePlayer(player);
-            main.game.addDeadPlayer(player);
+            main.game.addSpectator(player);
             Bukkit.getLogger().info(player.displayName()+" adicionado na equipe dos mortos");
         }
     }
